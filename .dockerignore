@@ -1,0 +1,31 @@
+# Dependências — são instaladas dentro do container
+backend/vendor/
+frontend/node_modules/
+
+# Git
+.git/
+.gitignore
+
+# Env — nunca entra na image
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Logs
+*.log
+backend/storage/logs/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+
+# Build do frontend — gerado em produção
+frontend/dist/
+
+# Docker (não precisa copiar pra dentro do container)
+docker-compose*.yml
+Dockerfile*
+
+# Dev
+README.md
+backend/tests/
+.github/

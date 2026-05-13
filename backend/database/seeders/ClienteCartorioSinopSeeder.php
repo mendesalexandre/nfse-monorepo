@@ -26,7 +26,19 @@ use PhpNfseNacional\Certificate\Certificate;
  */
 class ClienteCartorioSinopSeeder extends Seeder
 {
-    private const PFX_PATH = '/home/alexandre/code/SINOP/certificado_digital_a1_ecnpj_00179028000138.pfx';
+    /**
+     * Caminhos tentados em ordem (primeiro existente vence):
+     *  1. PFX_PATH env (override explícito)
+     *  2. storage/certs/cartorio_sinop.pfx (Docker volume)
+     *  3. /opt/certs/cartorio_sinop.pfx (Docker secrets-style mount)
+     *  4. /home/alexandre/code/SINOP/...pfx (host dev)
+     */
+    private const PFX_PATHS = [
+        null,  // será substituído por env('PFX_PATH') se setado
+        '/var/www/html/storage/certs/cartorio_sinop.pfx',
+        '/opt/certs/cartorio_sinop.pfx',
+        '/home/alexandre/code/SINOP/certificado_digital_a1_ecnpj_00179028000138.pfx',
+    ];
 
     private const PFX_SENHA = '123456';
 
@@ -38,10 +50,20 @@ class ClienteCartorioSinopSeeder extends Seeder
 
     public function run(): void
     {
-        if (! is_file(self::PFX_PATH)) {
+        // Resolve primeiro path existente (env > volume > local dev)
+        $pfxPath = null;
+        foreach ([env('PFX_PATH'), ...array_slice(self::PFX_PATHS, 1)] as $path) {
+            if ($path && is_file($path)) {
+                $pfxPath = $path;
+                break;
+            }
+        }
+
+        if ($pfxPath === null) {
             $this->command->warn(
-                '[ClienteCartorioSinopSeeder] PFX não encontrado em '.self::PFX_PATH.
-                ' — pulando seed do cliente.'
+                '[ClienteCartorioSinopSeeder] PFX não encontrado em nenhum dos caminhos: '
+                .implode(', ', array_filter(self::PFX_PATHS))
+                .' — pulando seed do cliente. Coloque o PFX em storage/certs/cartorio_sinop.pfx ou setar PFX_PATH no .env.'
             );
 
             return;
@@ -49,14 +71,14 @@ class ClienteCartorioSinopSeeder extends Seeder
 
         // Carrega cert pra extrair validade real
         try {
-            $cert = Certificate::fromPfxFile(self::PFX_PATH, self::PFX_SENHA);
+            $cert = Certificate::fromPfxFile($pfxPath, self::PFX_SENHA);
         } catch (\Throwable $e) {
             $this->command->error('[ClienteCartorioSinopSeeder] erro ao abrir PFX: '.$e->getMessage());
 
             return;
         }
 
-        $pfxBinario = file_get_contents(self::PFX_PATH);
+        $pfxBinario = file_get_contents($pfxPath);
         $pfxBase64 = base64_encode($pfxBinario);
 
         $cliente = Cliente::updateOrCreate(

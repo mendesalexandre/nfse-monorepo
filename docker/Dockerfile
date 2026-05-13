@@ -8,11 +8,20 @@ RUN apt-get update && apt-get install -y \
   unzip \
   libpq-dev \
   libzip-dev \
+  libpng-dev \
+  libjpeg-dev \
+  libfreetype6-dev \
   supervisor \
   && rm -rf /var/lib/apt/lists/*
 
 # Extensões PHP
-RUN docker-php-ext-install pdo pdo_pgsql zip pcntl opcache
+# - gd: necessário pra TCPDF (logo na DANFSe customizada do SDK NFSe)
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install pdo pdo_pgsql zip pcntl opcache gd
+
+# OpenSSL legacy provider (rsa-sha1 do SDK NFSe — DPS exige)
+COPY docker/openssl-sha1.cnf /etc/ssl/openssl-sha1.cnf
+ENV OPENSSL_CONF=/etc/ssl/openssl-sha1.cnf
 
 # Redis via pecl (não disponível via apt na image oficial do Docker)
 RUN pecl install redis && docker-php-ext-enable redis

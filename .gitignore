@@ -32,3 +32,8 @@ docker/.env
 .vscode/
 .DS_Store
 *.swp
+
+# Certificados PFX (NUNCA commit — dados sensíveis)
+backend/storage/certs/
+backend/.env.local-sqlite.bak
+backend/supervisord.pid
