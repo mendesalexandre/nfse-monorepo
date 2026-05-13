@@ -23,30 +23,23 @@
         <!-- Menu Principal -->
         <q-item clickable class="drawer-item" :to="{ name: 'home' }" exact>
           <q-item-section>
-            <q-icon name="fa-light fa-house" size="16px" />
+            <q-icon name="fa-light fa-gauge-high" size="16px" />
           </q-item-section>
-          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Início</q-tooltip>
+          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Dashboard</q-tooltip>
         </q-item>
 
-        <q-item clickable class="drawer-item">
+        <q-item clickable class="drawer-item" :to="{ name: 'clientes' }">
           <q-item-section>
-            <q-icon name="fa-light fa-wallet" size="16px" />
+            <q-icon name="fa-light fa-building" size="16px" />
           </q-item-section>
-          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Financeiro</q-tooltip>
+          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Clientes</q-tooltip>
         </q-item>
 
-        <q-item clickable class="drawer-item">
+        <q-item clickable class="drawer-item" :to="{ name: 'emissoes' }">
           <q-item-section>
-            <q-icon name="fa-light fa-users" size="16px" />
+            <q-icon name="fa-light fa-file-invoice" size="16px" />
           </q-item-section>
-          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Usuários</q-tooltip>
-        </q-item>
-
-        <q-item clickable class="drawer-item">
-          <q-item-section>
-            <q-icon name="fa-light fa-chart-pie" size="16px" />
-          </q-item-section>
-          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Relatórios</q-tooltip>
+          <q-tooltip anchor="center right" self="center left" :offset="[8, 0]">Emissões NFS-e</q-tooltip>
         </q-item>
       </q-list>
 
@@ -441,7 +434,7 @@ const user = auth.user;
 
 const leftDrawerOpen = ref(false);
 const modalBusca = ref(false);
-const modalExemplo = ref(true);
+const modalExemplo = ref(false);
 const termoBusca = ref("");
 
 const inputNome = ref("");
@@ -515,10 +508,6 @@ const alterarSenha = () => {
 
 onMounted(() => {
   initDarkMode();
-  $q.notify({ type: "positive", icon: "fa-light fa-circle-check", message: "Operação realizada com sucesso!", timeout: 5000 });
-  setTimeout(() => $q.notify({ type: "info", icon: "fa-light fa-circle-info", message: "Você tem 12 mensagens não lidas.", timeout: 5000 }), 300);
-  setTimeout(() => $q.notify({ type: "warning", icon: "fa-light fa-triangle-exclamation", message: "Atenção: sua sessão expira em 5 minutos.", timeout: 5000 }), 600);
-  setTimeout(() => $q.notify({ type: "negative", icon: "fa-light fa-circle-exclamation", message: "Erro ao salvar os dados. Tente novamente.", timeout: 5000 }), 900);
 });
 </script>
 

@@ -1,4 +1,6 @@
 import administracaoRoutes from "./administracao/index.js";
+import clientesRoutes from "./clientes/index.js";
+import emissoesRoutes from "./emissoes/index.js";
 
 const routes = [
   {
@@ -7,7 +9,7 @@ const routes = [
     children: [
       {
         path: "",
-        component: () => import("pages/IndexPage.vue"),
+        component: () => import("pages/dashboard/Index.vue"),
         name: "home",
       },
       {
@@ -16,6 +18,18 @@ const routes = [
         name: "posts",
       },
     ],
+  },
+
+  {
+    path: "/clientes",
+    component: () => import("layouts/MainLayout.vue"),
+    children: clientesRoutes,
+  },
+
+  {
+    path: "/emissoes",
+    component: () => import("layouts/MainLayout.vue"),
+    children: emissoesRoutes,
   },
 
   {
