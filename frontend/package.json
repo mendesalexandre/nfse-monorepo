@@ -1,0 +1,52 @@
+{
+  "name": "quasar-inicial",
+  "version": "0.0.1",
+  "description": "Template base Quasar com visual shadcn/Tailwind",
+  "productName": "Quasar Starter",
+  "author": "Alexandre Teixeira Mendes <alex.fnvip@gmail.com>",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "postinstall": "quasar prepare"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.17.0",
+    "@tinymce/tinymce-vue": "^6.3.0",
+    "axios": "^1.2.1",
+    "core-js": "^3.31.1",
+    "dotenv": "^17.3.1",
+    "laravel-echo": "^2.3.1",
+    "pinia": "^3.0.1",
+    "pusher-js": "^8.4.3",
+    "qrcode": "^1.5.4",
+    "quasar": "^2.18.7",
+    "tinymce": "^8.3.2",
+    "tinymce-i18n": "^26.2.16",
+    "vue": "^3.4.18",
+    "vue-i18n": "^11.0.0",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@quasar/app-webpack": "^4.4.2",
+    "autoprefixer": "^10.4.2"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

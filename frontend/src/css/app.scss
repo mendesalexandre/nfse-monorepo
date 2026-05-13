@@ -1,0 +1,1319 @@
+// =============================================
+// Quasar Skeleton — Override Global (Bootstrap-like + shadcn)
+// =============================================
+
+body {
+  background-color: #f5f5f5;
+}
+
+.fa-light {
+  font-weight: 400 !important;
+}
+
+// --- Variáveis ---
+$generic-border-radius: 0.25rem; // 4px — padrão Bootstrap
+$border-color: #ced4da;
+$text-color: #495057;
+$chip-bg: #f1f1f1;
+$disabled-opacity: 0.5;
+$transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Box-shadows — Tailwind/shadcn
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$box-shadow:
+  0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$box-shadow-lg:
+  0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+// --- Utilidades ---
+.w-full {
+  width: 100%;
+}
+
+// =============================================
+// Q-FIELD — Altura por padding (Bootstrap form-control)
+// Remove alturas fixas do Quasar, tamanho ditado por padding + font-size.
+// =============================================
+.q-field .q-field__control,
+.q-field--outlined .q-field__control,
+.q-field--dense .q-field__control,
+.q-field--auto-height .q-field__control,
+.q-field--auto-height.q-field--dense .q-field__control {
+  height: auto !important;
+  min-height: 38px !important;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  color: $text-color !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border-radius: $generic-border-radius !important;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.q-field .q-field__marginal,
+.q-field--dense .q-field__marginal {
+  height: auto !important;
+  min-height: auto !important;
+}
+
+.q-field .q-field__native,
+.q-field .q-field__prefix,
+.q-field .q-field__suffix,
+.q-field .q-field__input,
+.q-field--outlined .q-field__native,
+.q-field--auto-height .q-field__native,
+.q-field--auto-height.q-field--dense .q-field__native {
+  padding: 0 !important;
+  min-height: auto !important;
+  height: auto !important;
+  font-size: 1rem !important;
+  line-height: normal !important;
+}
+
+// Borda default
+.q-field--outlined .q-field__control:before {
+  border: 1px solid $border-color !important;
+}
+
+// Anula o ::after grosso do Quasar (2px solid currentColor)
+.q-field--outlined .q-field__control:after {
+  border: none !important;
+  transform: none !important;
+}
+
+// Focus sutil — ring fino estilo shadcn
+.q-field--outlined.q-field--focused .q-field__control {
+  box-shadow: 0 0 0 2px rgba($primary, 0.2) !important;
+
+  &:before {
+    border-color: $primary !important;
+  }
+}
+
+// Highlighted (select aberto)
+.q-field--outlined.q-field--highlighted .q-field__control {
+  box-shadow: 0 0 0 2px rgba($primary, 0.2) !important;
+
+  &:before {
+    border-color: $primary !important;
+  }
+}
+
+// Estado de erro — borda vermelha (override do primary no focus)
+.q-field--error .q-field__control {
+  &:before {
+    border-color: $negative !important;
+  }
+}
+
+.q-field--error.q-field--focused .q-field__control,
+.q-field--error.q-field--highlighted .q-field__control {
+  box-shadow: 0 0 0 2px rgba($negative, 0.2) !important;
+
+  &:before {
+    border-color: $negative !important;
+  }
+}
+
+.q-field .q-field__bottom {
+  padding: 4px 0 0 0 !important;
+}
+
+.q-field--disabled {
+  opacity: $disabled-opacity;
+  cursor: not-allowed;
+}
+
+// =============================================
+// Q-CARD
+// =============================================
+.q-card {
+  border-radius: $generic-border-radius !important;
+  box-shadow: $box-shadow-sm !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.rounded-borders {
+  border-radius: $generic-border-radius !important;
+}
+
+// =============================================
+// Q-TOOLTIP — Estilo DaisyUI
+// =============================================
+.q-tooltip {
+  background-color: #1e293b !important; // Slate-800
+  color: #f8fafc !important; // Slate-50
+  font-size: 0.8125rem !important;
+  line-height: 1.25 !important;
+  padding: 4px 8px !important;
+  border-radius: $generic-border-radius !important;
+  box-shadow: $box-shadow !important;
+  max-width: 20rem;
+  white-space: normal;
+}
+
+// =============================================
+// Q-NOTIFICATION — Estilo soft (DaisyUI-like)
+// Fundo suave, borda esquerda colorida, texto na cor do status.
+// =============================================
+.q-notification {
+  border-radius: $generic-border-radius !important;
+  box-shadow: $box-shadow !important;
+  border-left: 3px solid;
+  font-size: 0.875rem !important;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+
+  // Positive (success)
+  &.bg-positive {
+    background-color: #f0fdf4 !important;
+    border-left-color: $positive;
+    color: #15803d !important;
+
+    .q-icon {
+      color: $positive !important;
+    }
+  }
+
+  // Negative (error)
+  &.bg-negative {
+    background-color: #fef2f2 !important;
+    border-left-color: $negative;
+    color: #dc2626 !important;
+
+    .q-icon {
+      color: $negative !important;
+    }
+  }
+
+  // Warning
+  &.bg-warning {
+    background-color: #fffbeb !important;
+    border-left-color: $warning;
+    color: #b45309 !important;
+
+    .q-icon {
+      color: $warning !important;
+    }
+  }
+
+  // Info
+  &.bg-info {
+    background-color: #eff6ff !important;
+    border-left-color: $info;
+    color: #1d4ed8 !important;
+
+    .q-icon {
+      color: $info !important;
+    }
+  }
+}
+
+// Animação slide-in da direita
+.q-notification--top-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.q-notification__progress {
+  border-radius: 0 !important;
+}
+
+.q-notification__badge {
+  padding: 4px 8px;
+  position: absolute;
+  box-shadow: $box-shadow-sm !important;
+  border-radius: $generic-border-radius !important;
+}
+
+// =============================================
+// Q-LAYOUT — Evita scroll duplo em containers
+// Seletor depende da estrutura interna do Quasar.
+// =============================================
+.q-layout-container > div > div {
+  max-height: none !important;
+  min-height: 0;
+}
+
+// =============================================
+// Q-HEADER
+// =============================================
+.q-header {
+  box-shadow: $box-shadow !important;
+}
+
+// =============================================
+// Q-DRAWER
+// =============================================
+.q-drawer {
+  box-shadow: $box-shadow !important;
+  border-right: none !important;
+}
+
+// =============================================
+// Q-DIALOG
+// =============================================
+.q-dialog__inner > div {
+  border-radius: $generic-border-radius !important;
+}
+
+.q-dialog__inner--minimized {
+  padding: 24px 0 !important;
+}
+
+// =============================================
+// Q-CHIP
+// =============================================
+.q-chip {
+  padding: 0.5rem 0.5rem;
+  border-radius: $generic-border-radius !important;
+  background-color: $chip-bg;
+}
+
+// =============================================
+// Q-TOGGLE — Estilo shadcn (pill switch)
+// =============================================
+.q-toggle {
+  .q-toggle__inner {
+    font-size: 40px;
+    width: 32px !important;
+    min-width: 32px !important;
+    height: 18px !important;
+    padding: 0 !important;
+
+    .q-toggle__thumb {
+      top: 2px !important;
+      left: 2px !important;
+      width: 14px !important;
+      height: 14px !important;
+      transition: left $transition-fast !important;
+
+      &:after {
+        width: 14px !important;
+        height: 14px !important;
+        border-radius: 50% !important;
+        background: #ffffff !important;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        top: 0 !important;
+        left: 0 !important;
+      }
+
+      .q-focus-helper {
+        display: none !important;
+      }
+
+      &:before {
+        display: none !important;
+      }
+    }
+
+    .q-toggle__track {
+      width: 32px !important;
+      height: 18px !important;
+      border-radius: 9999px !important;
+      background: #e4e4e7 !important;
+      opacity: 1 !important;
+      transition: background $transition-fast !important;
+    }
+
+    &--truthy {
+      .q-toggle__track {
+        background: $primary !important;
+      }
+
+      .q-toggle__thumb {
+        left: 16px !important;
+      }
+    }
+
+    &--indet {
+      .q-toggle__track {
+        background: #a1a1aa !important;
+      }
+
+      .q-toggle__thumb {
+        left: 9px !important;
+      }
+    }
+  }
+
+  .q-toggle__label {
+    padding-left: 8px;
+    font-size: 14px;
+  }
+
+  &.disabled {
+    opacity: $disabled-opacity;
+  }
+}
+
+// =============================================
+// Q-SELECT
+// O q-select usa <span> ao invés de <input>, precisa de line-height explícito.
+// =============================================
+.q-select {
+  .q-item {
+    min-height: 38px !important;
+    padding: 0;
+    color: inherit;
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+
+    .q-badge {
+      padding: 0.5rem 0.5rem;
+      border-radius: $generic-border-radius;
+      background-color: $chip-bg;
+      border: 1px solid $chip-bg;
+    }
+  }
+
+  .q-field__input--padding {
+    padding-left: 0 !important;
+  }
+
+  .q-select__dropdown-icon {
+    font-size: 14px !important;
+  }
+
+  .q-field__focusable-action {
+    font-size: 14px !important;
+  }
+}
+
+// =============================================
+// Q-CHECKBOX — Estilo shadcn
+// =============================================
+.q-checkbox {
+  .q-checkbox__inner {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    font-size: 16px !important;
+    color: inherit;
+
+    .q-checkbox__bg {
+      top: 0 !important;
+      left: 0 !important;
+      width: 16px !important;
+      height: 16px !important;
+      border: 1.5px solid #d4d4d8 !important;
+      border-radius: 3px !important;
+      background: transparent !important;
+      transition: all $transition-fast !important;
+
+      .q-checkbox__svg {
+        padding: 1px !important;
+        color: #ffffff !important;
+      }
+    }
+
+    .q-focus-helper {
+      display: none !important;
+    }
+
+    &--truthy .q-checkbox__bg {
+      background: $primary !important;
+      border-color: $primary !important;
+    }
+
+    &--indet .q-checkbox__bg {
+      background: $primary !important;
+      border-color: $primary !important;
+    }
+  }
+
+  .q-checkbox__label {
+    padding-left: 8px;
+    font-size: 14px;
+  }
+
+  &.disabled {
+    opacity: $disabled-opacity;
+  }
+}
+
+body.desktop .q-checkbox:not(.disabled) .q-checkbox__inner:before {
+  display: none !important;
+}
+
+// =============================================
+// Q-BTN — Estilo shadcn
+// Compacto, sem uppercase, sem letter-spacing exagerado.
+// =============================================
+.q-btn {
+  border-radius: $generic-border-radius !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  letter-spacing: normal !important;
+  font-size: 14px !important;
+  min-height: 36px;
+  padding: 0 16px !important;
+
+  // Dentro do q-date, respeitar tamanhos internos
+  .q-date & {
+    min-height: unset;
+    padding: 0 !important;
+  }
+  box-shadow: none !important;
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+
+  .q-focus-helper {
+    display: none !important;
+  }
+
+  .q-ripple {
+    display: none !important;
+  }
+
+  &--dense {
+    min-height: 30px;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+  }
+
+  &--round {
+    padding: 0 !important;
+
+    .q-icon {
+      font-size: 18px !important;
+    }
+  }
+
+  // Variante outline — usa currentColor do Quasar
+  &--outline {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+  }
+
+  // Variante flat — sem background
+  &--flat {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04) !important;
+    }
+  }
+
+  // Unelevated (primary, secondary, etc.) — sem sombra, hover escurece
+  &--unelevated {
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.disabled {
+    opacity: $disabled-opacity !important;
+  }
+}
+
+// =============================================
+// Q-TABS — Estilo shadcn
+// Tabs limpas, sem ripple, indicador fino.
+// =============================================
+.q-tabs {
+  .q-tab {
+    text-transform: none !important;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: normal;
+    min-height: 40px;
+    padding: 0 16px;
+    color: #64748b;
+    transition: color 0.15s ease;
+
+    .q-focus-helper {
+      display: none !important;
+    }
+
+    .q-ripple {
+      display: none !important;
+    }
+
+    &:hover {
+      color: #0f172a;
+    }
+
+    &.q-tab--active {
+      color: #0f172a;
+      font-weight: 600;
+    }
+  }
+
+  .q-tab__indicator {
+    height: 2px !important;
+    border-radius: 2px 2px 0 0;
+  }
+
+  // Dense tabs
+  &--dense {
+    .q-tab {
+      min-height: 32px;
+      font-size: 13px;
+      padding: 0 12px;
+    }
+  }
+}
+
+// =============================================
+// Q-TABLE — Estilo shadcn/Tailwind
+// Cabeçalho slate, linhas zebradas, hover suave, paginação compacta.
+// =============================================
+.q-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+
+  // Cabeçalho
+  thead tr {
+    background-color: #f8fafc !important; // Slate-50
+
+    th {
+      font-size: 0.75rem !important;
+      font-weight: 600 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      color: #64748b !important; // Slate-500
+      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 10px 14px !important;
+      white-space: nowrap;
+    }
+  }
+
+  // Corpo
+  tbody {
+    td {
+      font-size: 0.875rem !important;
+      color: #334155 !important; // Slate-700
+      padding: 10px 14px !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+
+    // Zebra
+    tr:nth-child(even) {
+      background-color: #f8fafc !important;
+    }
+
+    // Hover
+    tr:hover {
+      background-color: #f1f5f9 !important;
+    }
+
+    // Selected
+    tr.selected {
+      background-color: rgba($primary, 0.06) !important;
+    }
+  }
+}
+
+// Container do q-table (card wrapper)
+.q-table__container {
+  border-radius: $generic-border-radius !important;
+  box-shadow: $box-shadow-sm !important;
+  border: 1px solid #e2e8f0;
+}
+
+// Top (título, busca, filtros)
+.q-table__top {
+  padding: 12px 14px !important;
+  min-height: auto !important;
+}
+
+// Bottom (paginação)
+.q-table__bottom {
+  border-top: 1px solid #e2e8f0 !important;
+
+  .q-icon {
+    font-size: 16px !important;
+  }
+}
+
+// Separator — linha entre linhas
+.q-table--no-wrap td {
+  white-space: nowrap;
+}
+
+// =============================================
+// Q-MENU — Dropdown limpo
+// =============================================
+.q-menu {
+  border-radius: 6px !important;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+
+  .q-item {
+    min-height: 36px !important;
+    padding: 6px 12px !important;
+    font-size: 0.875rem !important;
+    color: #334155 !important;
+    border-radius: 0 !important;
+    transition: background-color 0.1s ease;
+
+    &:hover {
+      background-color: #f1f5f9 !important;
+    }
+
+    .q-item__section--avatar {
+      min-width: 28px !important;
+      padding-right: 8px !important;
+    }
+  }
+
+  .q-item-label--header {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 8px 12px 4px !important;
+  }
+
+  .q-separator {
+    margin: 4px 0 !important;
+  }
+}
+
+// =============================================
+// Q-BADGE — Variante soft
+// =============================================
+.q-badge {
+  border-radius: $generic-border-radius !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  padding: 2px 8px !important;
+  box-shadow: none !important;
+
+  // Soft variants
+  &.bg-positive {
+    background-color: #f0fdf4 !important;
+    color: #15803d !important;
+  }
+
+  &.bg-negative {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+  }
+
+  &.bg-warning {
+    background-color: #fffbeb !important;
+    color: #b45309 !important;
+  }
+
+  &.bg-info {
+    background-color: #eff6ff !important;
+    color: #1d4ed8 !important;
+  }
+
+  &.bg-primary {
+    background-color: rgba($primary, 0.1) !important;
+    color: $primary !important;
+  }
+
+  &.bg-grey {
+    background-color: #f1f5f9 !important;
+    color: #64748b !important;
+  }
+}
+
+// =============================================
+// Q-BREADCRUMBS — Navegação limpa
+// =============================================
+.q-breadcrumbs {
+  font-size: 0.875rem;
+
+  .q-breadcrumbs__separator {
+    color: #cbd5e1 !important;
+    font-size: 0.75rem;
+  }
+
+  .q-breadcrumbs__el {
+    color: #64748b;
+    font-weight: 400;
+
+    &:hover {
+      color: #0f172a;
+    }
+
+    &:last-child {
+      color: #0f172a;
+      font-weight: 500;
+    }
+  }
+
+  a.q-breadcrumbs__el {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// =============================================
+// Q-SKELETON — Loading placeholder
+// =============================================
+.q-skeleton {
+  border-radius: $generic-border-radius !important;
+  background: #e2e8f0 !important;
+
+  &--anim-wave::after {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    ) !important;
+  }
+}
+
+// =============================================
+// Q-DATE — Calendário clean
+// =============================================
+.q-date {
+  box-shadow: $box-shadow-lg !important;
+  border-radius: 6px !important;
+  border: 1px solid #e2e8f0;
+
+  // Header do calendário
+  .q-date__header {
+    background-color: $primary !important;
+    padding: 12px 16px !important;
+    min-height: auto !important;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .q-date__header-title-label {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+  }
+
+  .q-date__header-subtitle {
+    font-size: 0.75rem !important;
+    opacity: 0.8;
+  }
+
+  // Navegação mês/ano
+  .q-date__navigation {
+    padding: 8px 4px !important;
+
+    .q-btn {
+      font-size: 0.875rem !important;
+      font-weight: 500 !important;
+    }
+  }
+
+  // Dias da semana
+  .q-date__calendar-weekdays > div {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #94a3b8 !important;
+  }
+
+  // Dias
+  .q-date__calendar-item {
+    .q-btn {
+      font-size: 0.8125rem !important;
+      width: 32px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+      border-radius: 6px !important;
+
+      &.q-btn--flat {
+        color: #334155 !important;
+
+        &:hover {
+          background-color: #f1f5f9 !important;
+        }
+      }
+
+      // Dia selecionado
+      &.bg-primary {
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+      }
+    }
+  }
+
+  // Dia atual
+  .q-date__today {
+    box-shadow: none !important;
+    border: 1.5px solid $primary !important;
+    border-radius: 6px !important;
+  }
+
+  // Range / meses / anos
+  .q-date__months-item,
+  .q-date__years-item {
+    .q-btn {
+      border-radius: 6px !important;
+      font-size: 0.8125rem !important;
+    }
+  }
+}
+
+// Minimal (sem header)
+.q-date--portrait-minimal,
+.q-date--landscape-minimal {
+  .q-date__content {
+    padding: 4px !important;
+  }
+}
+
+// =============================================
+// Q-PAGINATION — Standalone
+// =============================================
+.q-pagination {
+  .q-btn {
+    min-height: 32px !important;
+    min-width: 32px !important;
+    font-size: 0.8125rem !important;
+    border-radius: 6px !important;
+
+    &.q-btn--flat {
+      color: #64748b !important;
+
+      &:hover {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+      }
+    }
+
+    // Página ativa
+    &.q-btn--unelevated {
+      font-weight: 600 !important;
+    }
+
+    .q-icon {
+      font-size: 14px !important;
+    }
+  }
+
+  .q-pagination__middle {
+    gap: 2px;
+  }
+}
+
+// =============================================
+// Q-EXPANSION-ITEM — Accordion clean (minimal)
+// =============================================
+.q-expansion-item {
+  border: 1px solid #e2e8f0;
+  border-radius: $generic-border-radius !important;
+  margin-bottom: 8px;
+
+  .q-item {
+    color: #334155;
+    font-weight: 500;
+    font-size: 0.875rem;
+
+    .q-focus-helper,
+    .q-ripple {
+      display: none !important;
+    }
+  }
+
+  .q-expansion-item__content {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.6;
+
+    > * {
+      padding: 12px 16px;
+    }
+  }
+
+  .q-expansion-item__toggle-icon {
+    font-size: 14px !important;
+    color: #94a3b8 !important;
+  }
+
+  &.q-expansion-item--expanded {
+    > .q-expansion-item__container > .q-item {
+      border-bottom: 1px solid #e2e8f0;
+    }
+  }
+}
+
+// =============================================
+// Q-STEPPER — Clean shadcn style
+// =============================================
+.q-stepper {
+  box-shadow: $box-shadow-sm !important;
+  border-radius: $generic-border-radius !important;
+  border: 1px solid #e2e8f0;
+
+  .q-stepper__header {
+    border-bottom: 1px solid #e2e8f0;
+
+    .q-stepper__tab {
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      min-height: 48px;
+
+      .q-stepper__dot {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        font-size: 0.75rem;
+        font-weight: 600;
+
+        span {
+          font-size: 0.75rem;
+        }
+      }
+
+      .q-stepper__label {
+        font-weight: 500;
+        color: #64748b;
+        font-size: 0.8125rem;
+      }
+
+      &.q-stepper__tab--active .q-stepper__label {
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      &.q-stepper__tab--done .q-stepper__label {
+        color: #16a34a;
+      }
+    }
+
+    .q-stepper__line {
+      &:before,
+      &:after {
+        border-color: #e2e8f0;
+      }
+    }
+  }
+
+  .q-stepper__step-inner {
+    padding: 16px 24px;
+    font-size: 0.875rem;
+    color: #334155;
+    line-height: 1.6;
+  }
+
+  .q-stepper__nav {
+    padding: 12px 24px 16px;
+
+    .q-btn {
+      font-size: 0.8125rem;
+    }
+  }
+
+  // Sem ripple nos tabs
+  .q-stepper__tab {
+    .q-focus-helper,
+    .q-ripple {
+      display: none !important;
+    }
+  }
+}
+
+// =============================================
+// Q-CHIP — Soft style (como badges)
+// =============================================
+.q-chip {
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0 10px;
+  height: 28px;
+
+  .q-chip__icon {
+    font-size: 14px;
+  }
+
+  // Variantes soft
+  &.bg-primary {
+    background-color: rgba($primary, 0.1) !important;
+    color: $primary !important;
+
+    .q-chip__icon {
+      color: $primary !important;
+    }
+  }
+
+  &.bg-positive {
+    background-color: #f0fdf4 !important;
+    color: #16a34a !important;
+
+    .q-chip__icon {
+      color: #16a34a !important;
+    }
+  }
+
+  &.bg-negative {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+
+    .q-chip__icon {
+      color: #dc2626 !important;
+    }
+  }
+
+  &.bg-warning {
+    background-color: #fffbeb !important;
+    color: #d97706 !important;
+
+    .q-chip__icon {
+      color: #d97706 !important;
+    }
+  }
+
+  &.bg-info {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+
+    .q-chip__icon {
+      color: #2563eb !important;
+    }
+  }
+
+  &.bg-grey {
+    background-color: #f1f5f9 !important;
+    color: #475569 !important;
+
+    .q-chip__icon {
+      color: #475569 !important;
+    }
+  }
+
+  // Outline
+  &.q-chip--outline {
+    border: 1px solid currentColor;
+    background-color: transparent !important;
+  }
+
+  // Remove button (x)
+  .q-chip__icon--remove {
+    font-size: 12px;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// =============================================
+// Q-TIMELINE — Clean style
+// =============================================
+.q-timeline {
+  padding: 0;
+
+  .q-timeline__heading-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .q-timeline__entry {
+    padding-bottom: 20px;
+
+    .q-timeline__dot {
+      .q-icon {
+        font-size: 14px;
+      }
+    }
+
+    .q-timeline__subtitle {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .q-timeline__title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .q-timeline__content {
+      font-size: 0.8125rem;
+      color: #64748b;
+      line-height: 1.6;
+      padding-bottom: 0;
+    }
+  }
+}
+
+// =============================================
+// Q-LINEAR-PROGRESS — Clean
+// =============================================
+.q-linear-progress {
+  border-radius: 9999px;
+  height: 8px !important;
+  background-color: #e2e8f0 !important;
+
+  .q-linear-progress__track {
+    opacity: 1 !important;
+  }
+
+  .q-linear-progress__model {
+    border-radius: 9999px;
+  }
+}
+
+// =============================================
+// Q-CIRCULAR-PROGRESS — Clean
+// =============================================
+.q-circular-progress {
+  .q-circular-progress__text {
+    font-size: 0.25em;
+    font-weight: 600;
+    fill: #334155;
+  }
+}
+
+// =============================================
+// Q-LOADING — Overlay clean
+// =============================================
+.q-loading-bar {
+  height: 3px !important;
+}
+
+.q-loading {
+  .q-loading__backdrop {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .q-loading__box {
+    padding: 24px 32px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: $box-shadow-lg;
+    color: #334155;
+
+    .q-spinner {
+      color: var(--q-primary);
+    }
+  }
+}
+
+// =============================================
+// DARK MODE
+// =============================================
+body.body--dark {
+  background-color: #0f172a;
+
+  .q-header {
+    background-color: #1e293b !important;
+  }
+
+  .q-drawer {
+    background-color: #1e293b !important;
+  }
+
+  .q-card {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+
+  .q-field--outlined .q-field__control {
+    border-color: #334155 !important;
+
+    &:hover {
+      border-color: #475569 !important;
+    }
+  }
+
+  .q-table {
+    background-color: #1e293b;
+
+    thead th {
+      background-color: #0f172a !important;
+      color: #94a3b8 !important;
+    }
+
+    tbody tr {
+      &:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+      }
+    }
+
+    .q-table__bottom {
+      border-color: #334155;
+    }
+  }
+
+  .q-expansion-item {
+    border-color: #334155;
+
+    .q-item {
+      color: #e2e8f0;
+    }
+
+    &.q-expansion-item--expanded > .q-expansion-item__container > .q-item {
+      border-bottom-color: #334155;
+    }
+  }
+
+  .q-stepper {
+    background-color: #1e293b;
+    border-color: #334155;
+
+    .q-stepper__header {
+      border-bottom-color: #334155;
+    }
+  }
+
+  .q-separator {
+    background-color: #334155 !important;
+  }
+
+  .q-menu {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+
+  .q-breadcrumbs__separator {
+    color: #475569 !important;
+  }
+
+  .q-skeleton {
+    background-color: #334155 !important;
+  }
+}
+
+// ============================================
+// SCROLLBARS — Estilo minimalista
+// =============================================
+::-webkit-scrollbar-thumb {
+  border-radius: 0 !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0 !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}

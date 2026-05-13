@@ -1,0 +1,99 @@
+// =============================================
+// TinyMCE — Override visual clean
+// =============================================
+
+// Container principal
+.tox-tinymce {
+  border: 1px solid #ced4da !important;
+  border-radius: 4px !important;
+}
+
+.tox {
+  border-radius: 4px !important;
+}
+
+// Remove borda de focus azul do editor
+.tox.tox-edit-focus .tox-edit-area::before {
+  opacity: 0 !important;
+}
+
+// Header toolbar — shadow sutil
+.tox:not(.tox-tinymce-inline) .tox-editor-header {
+  box-shadow: 0 2px 2px -2px rgba(34, 47, 62, 0.1), 0 8px 8px -4px rgba(34, 47, 62, 0.07) !important;
+}
+
+// Toolbar background branco
+body .tox .tox-toolbar,
+body .tox .tox-toolbar__primary,
+body .tox .tox-toolbar__overflow {
+  background: #fff !important;
+}
+
+// Botões da toolbar compactos
+.tox .tox-tbtn {
+  align-items: center;
+  background: #fff;
+  border: 0;
+  border-radius: 4px !important;
+  box-shadow: none;
+  display: flex;
+  flex: 0 0 auto;
+  font-style: normal;
+  font-weight: normal;
+  height: 28px;
+  justify-content: center;
+  margin: 0 !important;
+  outline: none;
+  text-transform: none;
+}
+
+// Esconde statusbar e promotion
+.tox-statusbar {
+  display: none !important;
+}
+
+.tox .tox-bottom-anchorbar {
+  display: none !important;
+}
+
+.tox .tox-promotion {
+  display: none !important;
+}
+
+// Fullscreen z-index alto (acima de modais Quasar)
+.tox.tox-tinymce.tox-fullscreen,
+.tox-shadowhost.tox-fullscreen {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  position: fixed;
+  z-index: 5999 !important;
+}
+
+.tox-fullscreen .tox.tox-tinymce-aux,
+.tox-fullscreen .tox.tox-tinymce-aux {
+  z-index: 10000 !important;
+}
+
+.tox.tox-tinymce-aux {
+  z-index: 10000 !important;
+}
+
+// Dialogs do TinyMCE
+.tox .tox-dialog {
+  border-radius: 6px !important;
+}
+
+.tox .tox-dialog__header {
+  border-bottom: 0 !important;
+}
+
+.tox .tox-dialog__body-content {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 10px !important;
+}
