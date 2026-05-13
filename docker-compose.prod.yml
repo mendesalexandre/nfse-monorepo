@@ -1,4 +1,4 @@
-name: laravel-docker-prod
+name: nfse-monorepo-prod
 
 services:
 
@@ -7,13 +7,17 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: laravel_docker_app
+    container_name: nfse_app
     restart: always
-    # SEM bind mount — código está dentro da image
+    # Cert PFX em volume read-only — único bind mount necessário
+    # (NUNCA dentro da image — perderia em rebuild + dados sensíveis).
+    # Código/vendor ficam dentro da image (build-time).
+    volumes:
+      - ./backend/storage/certs:/var/www/html/storage/certs:ro
     env_file:
       - ./backend/.env.prod
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
     depends_on:
       postgres:
         condition: service_healthy
@@ -26,7 +30,7 @@ services:
   #   /*      → arquivos estáticos do Quasar buildado
   nginx:
     image: nginx:alpine
-    container_name: laravel_docker_nginx
+    container_name: nfse_nginx
     restart: always
     ports:
       - "80:80"
@@ -39,7 +43,7 @@ services:
       - certbot_certs:/etc/letsencrypt:ro
       - certbot_www:/var/www/certbot:ro
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
     depends_on:
       - app
 
@@ -47,19 +51,19 @@ services:
   # Renova certificados automaticamente a cada 12h
   certbot:
     image: certbot/certbot
-    container_name: laravel_docker_certbot
+    container_name: nfse_certbot
     restart: unless-stopped
     entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done'
     volumes:
       - certbot_certs:/etc/letsencrypt
       - certbot_www:/var/www/certbot
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
 
   # ── POSTGRESQL ─────────────────────────────────────────────────────────────
   postgres:
     image: postgres:18
-    container_name: laravel_docker_postgres
+    container_name: nfse_postgres
     restart: always
     environment:
       POSTGRES_DB: ${DB_DATABASE}
@@ -74,12 +78,12 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
 
   # ── REDIS ──────────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
-    container_name: laravel_docker_redis
+    container_name: nfse_redis
     restart: always
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
@@ -91,13 +95,13 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
 
   # ── PORTAINER (Monitoramento) ──────────────────────────────────────────────
   # Acesse em https://seu-dominio.com.br:9443
   portainer:
     image: portainer/portainer-ce:latest
-    container_name: laravel_docker_portainer
+    container_name: nfse_portainer
     restart: always
     ports:
       - "9443:9443"
@@ -105,7 +109,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     networks:
-      - laravel_docker_prod_net
+      - nfse_prod_net
 
 volumes:
   postgres_data:
@@ -115,5 +119,5 @@ volumes:
   portainer_data:
 
 networks:
-  laravel_docker_prod_net:
+  nfse_prod_net:
     driver: bridge

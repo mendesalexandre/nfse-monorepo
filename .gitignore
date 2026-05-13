@@ -37,3 +37,4 @@ docker/.env
 backend/storage/certs/
 backend/.env.local-sqlite.bak
 backend/supervisord.pid
+backend/.env.prod
