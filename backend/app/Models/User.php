@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasName
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -45,6 +46,14 @@ class User extends Authenticatable implements FilamentUser
     public function getAuthPassword(): string
     {
         return $this->senha;
+    }
+
+    /**
+     * Filament — usa coluna `nome` (pt_BR) como label do usuário no painel.
+     */
+    public function getFilamentName(): string
+    {
+        return (string) ($this->nome ?? $this->email ?? 'Usuário');
     }
 
     /**
