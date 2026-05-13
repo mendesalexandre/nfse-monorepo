@@ -19,7 +19,7 @@
         "laravel/reverb": "^1.8",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
-        "mendesalexandre/php-nfse-nacional": "^0.5.1"
+        "mendesalexandre/php-nfse-nacional": "^0.6.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f4a339dc464fa10552c5a8c9b087cee",
+    "content-hash": "52385d0934237499e081317d651b4cf8",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -3563,16 +3563,16 @@
         },
         {
             "name": "mendesalexandre/php-nfse-nacional",
-            "version": "v0.5.1",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mendesalexandre/php-nfse-nacional.git",
-                "reference": "5505a336ee351efc58370b01babe5e8dc0bd41fe"
+                "reference": "dbf654c53896613076240f5e1ef5dd7afc2751b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mendesalexandre/php-nfse-nacional/zipball/5505a336ee351efc58370b01babe5e8dc0bd41fe",
-                "reference": "5505a336ee351efc58370b01babe5e8dc0bd41fe",
+                "url": "https://api.github.com/repos/mendesalexandre/php-nfse-nacional/zipball/dbf654c53896613076240f5e1ef5dd7afc2751b9",
+                "reference": "dbf654c53896613076240f5e1ef5dd7afc2751b9",
                 "shasum": ""
             },
             "require": {
@@ -3621,9 +3621,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mendesalexandre/php-nfse-nacional/issues",
-                "source": "https://github.com/mendesalexandre/php-nfse-nacional/tree/v0.5.1"
+                "source": "https://github.com/mendesalexandre/php-nfse-nacional/tree/v0.6.0"
             },
-            "time": "2026-05-13T05:45:24+00:00"
+            "time": "2026-05-13T15:32:34+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -12587,5 +12587,5 @@
         "php": "^8.3"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
