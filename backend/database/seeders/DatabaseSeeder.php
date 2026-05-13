@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
             // Domínio NFS-e
             'nfse' => ['emitir', 'cancelar', 'consultar'],
-            'cliente' => ['criar', 'editar', 'gerar_credenciais', 'revogar'],
+            'cliente' => ['listar', 'criar', 'editar', 'gerar_credenciais', 'revogar'],
         ];
 
         foreach ($modulos as $modulo => $acoes) {

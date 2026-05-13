@@ -36,5 +36,6 @@ docker/.env
 # Certificados PFX (NUNCA commit — dados sensíveis)
 backend/storage/certs/
 backend/.env.local-sqlite.bak
+backend/.env.bak.docker-pgsql
 backend/supervisord.pid
 backend/.env.prod

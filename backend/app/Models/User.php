@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -43,6 +45,25 @@ class User extends Authenticatable
     public function getAuthPassword(): string
     {
         return $this->senha;
+    }
+
+    /**
+     * Filament — controla quem pode entrar no painel admin.
+     *
+     * Permite admins (bypass total) e qualquer usuário com permissão de
+     * leitura básica de cliente ou consulta de NFS-e.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if (! $this->is_ativo) {
+            return false;
+        }
+
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        return $this->temAlgumaPermissao(['cliente.listar', 'nfse.consultar']);
     }
 
     // ===== SISTEMA DE PERMISSÕES =====
